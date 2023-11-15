@@ -17,7 +17,6 @@ export default function Classroom({
 }) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [isSignedIn, setIsSignedIn] = useState(false);
-    const [accessToken, setAccessToken] = useState(null);
     const [tokenClient, setTokenClient] = useState({});
 
   const { id } = useParams();
@@ -32,18 +31,6 @@ export default function Classroom({
 
     const CLIENT_ID = '837981329487-0hqkf7h3i5d55co41do68n034jde5c0d.apps.googleusercontent.com';
     const SCOPES = "https://www.googleapis.com/auth/classroom.coursework.students https://www.googleapis.com/auth/classroom.courses https://www.googleapis.com/auth/classroom.coursework.me https://www.googleapis.com/auth/classroom.announcements";
-
-    // tokenClient
-    /*setTokenClient(
-        google.accounts.oauth2.initTokenClient({
-            client_id: CLIENT_ID,
-            scope: SCOPES,
-            callback: (tokenResponse) => {
-                console.log(tokenResponse);
-                // We now have access to a live token for ANY google API
-            }
-        })
-    );*/
 
     useEffect(() => {
         // tokenClient
@@ -70,46 +57,6 @@ export default function Classroom({
         setTokenClient(tokenClient);
     }, []);
 
-    
-
-    /*const client = google.accounts.oauth2.initTokenClient({
-        client_id: CLIENT_ID,
-        scope: SCOPES,
-        callback: (tokenResponse) => {
-            console.log("Callback is invoked!");
-            if (tokenResponse && tokenResponse.access_token) {
-                setAccessToken(tokenResponse.access_token);
-
-                /*function start() {
-                    // 2. Initialize the JavaScript client library.
-                    gapi.client.init({
-                        'apiKey': API_KEY,
-                        // clientId and scope are optional if auth is not required.
-                        'clientId': CLIENT_ID,
-                        'scope': SCOPES,
-                    }).then(function () {
-                        // 3. Initialize and make the API request.
-                        return gapi.client.request({
-                            'path': 'https://people.googleapis.com/v1/courses',
-                        })
-                    }).then(function (response) {
-                        console.log(response.result);
-                    }, function (reason) {
-                        console.log('Error: ' + reason.result.error.message);
-                    });
-                };
-                // 1. Load the JavaScript client library.
-                gapi.load('client', start);
-
-                if (google.accounts.oauth2.hasGrantedAnyScope(tokenResponse, SCOPES)) {
-                    gapi.client.setApiKey(API_KEY);
-                    gapi.client.load('classroom', 'v1', sendGrades);
-                    console.log("GAPI is loaded!");
-                }
-            }
-        },
-    });*/
-
   useEffect(() => {
     sessionStorage.setItem('classroomId', id);
 
@@ -117,25 +64,6 @@ export default function Classroom({
 
     function sendGrades() {
         tokenClient.requestAccessToken();
-        /*if (gapi && gapi.auth) {
-            const auth = gapi.auth.getToken();
-            if (auth.isSignedIn.get()) {
-                // Make an API request to update the student's grades for the assignment
-                gapi.client.classroom.courses.courseWork.studentSubmissions.modifyAttachments({
-                    courseId: 'NjM3MTA3NjEzNDky',  // Replace with your course ID
-                    courseWorkId: 'NjM3MTEwOTc4NjI5',
-                    id: 'NjM3MTExMDc5MDkw',
-                }, newGrades).then(function (response) {
-                    // Handle the API response, check if the grades were updated successfully
-                    console.log('Grades updated:', response.result);
-                });
-            } else {
-                console.log('Not signed in!');
-            }
-        } else {
-            console.log('gapi or gapi.auth is not initialized');
-        }
-        //console.log(gapi.auth.getToken().access_token);*/
     }
 
     function handleCallbackResponse(res) {
@@ -143,11 +71,6 @@ export default function Classroom({
         var userObject = jwtDecode(res.credential);
         console.log(userObject);
         //client.requestAccessToken();
-    }
-
-    function handleSignIn(res) {
-        console.log("handSignIn is called!");
-        client.requestAccessToken();
     }
 
     useEffect(() => {
@@ -206,7 +129,7 @@ export default function Classroom({
                       ) : (
                           <div>
                               <h2>New sign in below</h2>
-                                  <div id="signInDiv" onClick={handleSignIn}> </div>
+                                  <div id="signInDiv"></div>
                                   
                           </div>
                       )}
