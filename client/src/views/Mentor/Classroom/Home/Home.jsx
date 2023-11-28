@@ -11,18 +11,107 @@ import MentorActivityDetailModal from './MentorActivityDetailModal';
 import LessonModuleModal from './LessonModuleSelect/LessonModuleModal';
 import { message, Tag } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { initializeGapiClient, gisLoaded, gapiLoaded } from '../../../../components/gapiCallbacks';
 
 export default function Home({ classroomId, viewing }) {
   const [classroom, setClassroom] = useState({});
   const [activities, setActivities] = useState([]);
   const [gradeId, setGradeId] = useState(null);
   const [activeLessonModule, setActiveLessonModule] = useState(null);
-  const [activityDetailsVisible, setActivityDetailsVisible] = useState(false)
+    const [activityDetailsVisible, setActivityDetailsVisible] = useState(false)
+    const [tokenClient, setTokenClient] = useState({});
   const navigate = useNavigate();
 
   const SCIENCE = 1;
   const MAKING = 2;
-  const COMPUTATION = 3;
+    const COMPUTATION = 3;
+
+    const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
+    const SCOPES = "https://www.googleapis.com/auth/classroom.coursework.students https://www.googleapis.com/auth/classroom.courses https://www.googleapis.com/auth/classroom.coursework.me https://www.googleapis.com/auth/classroom.announcements";
+    const DISCOVERY_DOC = 'https://classroom.googleapis.com/$discovery/rest';
+
+    useEffect(() => {
+        // tokenClient
+        const tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: CLIENT_ID,
+            scope: SCOPES,
+            callback: (tokenResponse) => {
+                console.log(tokenResponse);
+                // We now have access to a live token for ANY google API
+                if (tokenResponse && tokenResponse.access_token) {
+                    // talking with HTTP
+                    fetch("https://classroom.googleapis.com/v1/courses/NjM3MTA3NjEzNDky/courseWork/NjM3MTEwOTc4NjI5/studentSubmissions/NjM3MTExMDc5MDkw?updateMask=assignedGrade", {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${tokenResponse.access_token}`
+                        },
+                        
+                        body: JSON.stringify({ "assignedGrade": 90 })
+                    })
+                    /*fetch("https://classroom.googleapis.com/v1/courses/NjM3MTA3NjEzNDky/courseWork/NjM3MTEwOTc4NjI5/studentSubmissions", {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${tokenResponse.access_token}`
+                        },
+                    }).then(response => response.json()).then(data => console.log(data));
+                    console.log(tokenResponse.access_token);*/
+                }
+            }
+        });
+
+        setTokenClient(tokenClient);
+    }, []);
+
+    /*useEffect(() => {
+        function start() {
+            gapi.client.init({
+                clientId: CLIENT_ID,
+                discoveryDocs: [DISCOVERY_DOC],
+                scope: SCOPES
+            })
+        }
+        gapi.load('client:auth2', start);
+    }, [tokenClient]);*/
+
+    /*useEffect(() => {
+        initializeGapiClient();
+        gapiLoaded();
+        gisLoaded();
+    }, []);*/
+
+    function sendActivity() {
+        //tokenClient.requestAccessToken();
+        //listCourses();
+        //console.log("Courses should be listed!");
+    }
+
+    /**
+       * Print the names of the first 10 courses the user has access to. If
+       * no courses are found an appropriate message is printed.
+       */
+    /*async function listCourses() {
+        let response;
+        try {
+            response = await gapi.client.classroom.courses.list({
+                pageSize: 10,
+            });
+        } catch (err) {
+            document.getElementById('content').innerText = err.message;
+            return;
+        }
+
+        const courses = response.result.courses;
+        if (!courses || courses.length == 0) {
+            document.getElementById('content').innerText = 'No courses found.';
+            return;
+        }
+        // Flatten to string to display
+        const output = courses.reduce(
+            (str, course) => `${str}${course.name}\n`,
+            'Courses:\n');
+        document.getElementById('content').innerText = output;
+    }*/
 
   useEffect(() => {
     const fetchData = async () => {
@@ -151,8 +240,13 @@ export default function Home({ classroomId, viewing }) {
                             }
                           >
                             Demo Template
-                          </button>
-                        )}
+                                  </button>
+
+
+                              )}
+
+                              <button onClick={() => sendActivity()}> Send Activities </button>
+
                         <MentorActivityDetailModal
                           learningStandard={activeLessonModule}
                           selectActivity={activity}

@@ -50,7 +50,12 @@ export default function Classroom({
             setSearchParams={setSearchParams}
             classroomId={id}
           />
-        </TabPane>
+              </TabPane>
+              <TabPane tab='Send Activities' key='grades'>
+                  <div>
+                      <button onClick={() => sendGrades()}> Send Activities </button>
+                  </div>
+              </TabPane>
       </Tabs>
     </div>
   );
