@@ -262,7 +262,7 @@
     "/learning-components/count": {
       "get": {
         "deprecated": false,
-        "description": "Retrieve the number of learning-components documents",
+        "description": "Retrieve the numver of learning-components documents",
         "responses": {
           "200": {
             "description": "Retrieve learning-components document(s)",
@@ -560,10 +560,7 @@
                   "type": "string"
                 },
                 "blocks": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
+                  "type": "string"
                 },
                 "description": {
                   "type": "string"
@@ -613,7 +610,7 @@
                 }
               },
               "published_at": {
-                "type": "string"
+                "type": "datetime"
               },
               "created_by": {
                 "type": "string"
@@ -624,8 +621,7 @@
             }
           },
           "published_at": {
-            "type": "string",
-            "format": "date-time"
+            "type": "datetime"
           }
         }
       },
@@ -644,8 +640,7 @@
             "type": "string"
           },
           "published_at": {
-            "type": "string",
-            "format": "date-time"
+            "type": "datetime"
           },
           "created_by": {
             "type": "string"

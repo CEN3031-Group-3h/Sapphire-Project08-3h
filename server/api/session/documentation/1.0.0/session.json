@@ -611,7 +611,7 @@
                   "type": "boolean"
                 },
                 "last_logged_in": {
-                  "type": "string"
+                  "type": "datetime"
                 },
                 "created_by": {
                   "type": "string"

@@ -262,7 +262,7 @@
     "/learning-component-types/count": {
       "get": {
         "deprecated": false,
-        "description": "Retrieve the number of learning-component-types documents",
+        "description": "Retrieve the numver of learning-component-types documents",
         "responses": {
           "200": {
             "description": "Retrieve learning-component-types document(s)",
@@ -561,7 +561,7 @@
                   "type": "string"
                 },
                 "published_at": {
-                  "type": "string"
+                  "type": "datetime"
                 },
                 "created_by": {
                   "type": "string"
@@ -573,8 +573,7 @@
             }
           },
           "published_at": {
-            "type": "string",
-            "format": "date-time"
+            "type": "datetime"
           }
         }
       },
@@ -590,8 +589,7 @@
             }
           },
           "published_at": {
-            "type": "string",
-            "format": "date-time"
+            "type": "datetime"
           },
           "created_by": {
             "type": "string"
