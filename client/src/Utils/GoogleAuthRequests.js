@@ -5,6 +5,7 @@ import axios from 'axios';
 
 export const getGoogleLoginUrl = async () => {
     const url = await axios.get(`${server}/google-auth-provider/initGoogleLogin`);
+    console.log(url);
     return url;
 }
 

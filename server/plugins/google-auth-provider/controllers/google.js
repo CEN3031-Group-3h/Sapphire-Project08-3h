@@ -55,6 +55,10 @@ module.exports = {
       .getUserDetailsFromToken(token)
 
     console.log(userData);
+  },
+
+  googleClassroomAssignmentUpload: async (ctx) => {
+    console.log("I made it");
   }
 
 };
