@@ -782,8 +782,7 @@
             "default": true
           },
           "last_logged_in": {
-            "type": "string",
-            "format": "date-time"
+            "type": "datetime"
           }
         }
       },
@@ -812,8 +811,7 @@
             "default": true
           },
           "last_logged_in": {
-            "type": "string",
-            "format": "date-time"
+            "type": "datetime"
           },
           "created_by": {
             "type": "string"

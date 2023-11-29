@@ -622,10 +622,7 @@
                 "type": "string"
               },
               "blocks": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
+                "type": "string"
               },
               "description": {
                 "type": "string"
