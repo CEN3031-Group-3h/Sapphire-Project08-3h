@@ -19,16 +19,15 @@ const formatError = (error) => [
 ];
 
 module.exports = {
-  async callback(ctx) {
-    const provider = ctx.params.provider || 'local';
-    const params = ctx.request.body;
+  // ... (other functions)
 
-    const store = await strapi.store({
+  async register(ctx) {
+    const pluginStore = await strapi.store({
       environment: '',
       type: 'plugin',
       name: 'users-permissions',
     });
-
+    
     if (provider === 'local') {
       if (!_.get(await store.get({ key: 'grant' }), 'email.enabled')) {
         return ctx.badRequest(null, 'This provider is disabled.');
