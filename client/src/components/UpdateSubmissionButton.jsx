@@ -6,7 +6,7 @@ import { server } from '../Utils/hosts';
 import { googleGetGapiToken } from '../Utils/GoogleAuthRequests';
 import { googleGetStudentSubmissions, googleGetCourseWork, googleGetCourseWorkList} from '../Utils/googleRequests';
 
-const UpdateSubmissionButton = ({ courseId, courseWorkId, studentId }) => {
+const UpdateSubmissionButton = ({ classroomid, activity }) => {
     const [response, setResponse] = useState(null);
 
     const handleUpdateSubmission = async () => {
@@ -23,9 +23,9 @@ const UpdateSubmissionButton = ({ courseId, courseWorkId, studentId }) => {
             //         // ... other fields
             //     }
             // );
+            console.log(activity)
 
-            //const classrooms = await googleGetCourseWorkList('637107613492');
-            const classrooms = await googleGetStudentSubmissions('637107613492', '637110978629');
+            const classrooms = await googleGetStudentSubmissions(classroomid, activity);
             console.log(classrooms)
 
             // Handle the response

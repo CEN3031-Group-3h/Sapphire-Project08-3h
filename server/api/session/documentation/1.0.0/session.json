@@ -573,6 +573,9 @@
                   "type": "string"
                 }
               },
+              "google_classroom": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },

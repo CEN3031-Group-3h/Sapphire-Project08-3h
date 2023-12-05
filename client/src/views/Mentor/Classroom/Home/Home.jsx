@@ -12,6 +12,7 @@ import LessonModuleModal from './LessonModuleSelect/LessonModuleModal';
 import { message, Tag } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import UpdateSubmissionButton from '../../../../components/UpdateSubmissionButton'
+import AssignmentUpload from '../../GoogleClassroomAssignmentUpload/AssignmentUpload';
 
 export default function Home({ classroomId, viewing }) {
   const [classroom, setClassroom] = useState({});
@@ -161,9 +162,8 @@ export default function Home({ classroomId, viewing }) {
 
                               {/* Use the button component with the necessary IDs */}
                               <UpdateSubmissionButton
-                                  courseId={courseId}
-                                  courseWorkId={courseWorkId}
-                                  studentId={studentId}
+                                classroomid={classroomId}
+                                activity={activity}
                               />
 
                         <MentorActivityDetailModal
@@ -247,6 +247,12 @@ export default function Home({ classroomId, viewing }) {
                             </a>
                           </p>
                         ) : null}
+                      </div>
+                      <div>
+                          <AssignmentUpload 
+                            classroomid={classroomId}
+                            activity={activity}
+                          />
                       </div>
                     </div>
                   ))}

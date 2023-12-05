@@ -33,8 +33,16 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/assignmentupload/:id",
+      "handler": "classroom.upload",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "GET",
-      "path": "/courses/:courseId/courseWork/:courseWorkId/studentSubmissions",
+      "path": "/studentList/:id/learningStandard/:standardId/activity/:levelId/",
       "handler": "classroom.getStudentId",
       "config": {
         "policies": []
@@ -44,6 +52,14 @@
       "method": "PATCH",
       "path": "/courses/:courseId/:courseWorkId/studentSubmissions/:studentId",
       "handler": "classroom.updateStudentGrade",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/courses/:courseId/courseWork/:id",
+      "handler": "classroom.courseWork",
       "config": {
         "policies": []
       }

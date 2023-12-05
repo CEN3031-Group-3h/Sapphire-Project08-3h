@@ -17,30 +17,35 @@ export default function AddGoogleClassroomForm() {
   const { id, name, enrollmentCode } = location.state;
   const navigate = useNavigate();
 
-  // For debugging change these fields
-  const grade = 4;
-  const school = 1;
-  const firstName = 'Kaniel'
-  const lastName = 'Vicencio'
+  const handleAddClassroom = (e) => {
+    e.preventDefault();
 
-  const handleAddClassroom = () => {
-    console.log(sessionStorage.getItem('user'))
+    const form = e.target;
+    const formData = new FormData(form);
+    const formJson = Object.fromEntries(formData.entries());
+
+    const user = JSON.parse(sessionStorage.getItem('user'))
+
     const classroomObj = {
       name,
-      school,
-      grade,
+      id,
+      school: formJson.school,
+      grade: formJson.grade,
       enrollmentCode,
       mentorObj: {
-        firstName,
-        lastName,
-        school,
-        user: 18
+        firstName: formJson.firstName,
+        lastName: formJson.lastName,
+        school: formJson.school,
+        user: user.id
       }
     }
+    
+    console.log(classroomObj)
 
     googleAddClassroom(id, classroomObj).then(res => {
       console.log(res);
       navigate('/dashboard')
+      message.success('Classroom added');
     }).catch(err => {
       console.log(err)
     })
@@ -50,9 +55,23 @@ export default function AddGoogleClassroomForm() {
     <div className='container nav-padding'>
       <NavBar />
       <div id='main-header'>Welcome {value.name}</div>
-      <MentorSubHeader title={'Add Google Classroom'}></MentorSubHeader>
+      <MentorSubHeader title={`Add ${name}`}></MentorSubHeader>
       <div id='classrooms-container'>
-        <button onClick={() => handleAddClassroom()}>Add Classroom</button>
+        <form id='add-classroom-form' method='post' onSubmit={handleAddClassroom}>
+          <label>
+            First Name: <input name="firstName" defaultValue="Kaniel" />
+          </label>
+          <label>
+            Last Name: <input name="lastName" defaultValue="Vicencio" />
+          </label>
+          <label>
+            School: <input name="school" defaultValue="1" />
+          </label>
+          <label>
+            Grade: <input name="grade" defaultValue="4" />
+          </label>
+          <button id='add-classroom-form-button' type='submit'>Add Classroom</button>
+        </form>
       </div>
     </div>
   )

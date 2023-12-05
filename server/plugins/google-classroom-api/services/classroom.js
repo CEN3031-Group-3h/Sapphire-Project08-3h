@@ -10,27 +10,28 @@ const axios = require('axios')
  */
 
 module.exports = {
-  async getGoogleClassroomClient(code) {
-    const oAuth2Client = new google.auth.OAuth2(
-      process.env.CLIENT_ID,
-      process.env.CLIENT_SECRET,
-      process.env.REDIRECT_URL
-    );
-    google.options({ auth: oAuth2Client });
+    async getGoogleClassroomClient(code) {
+        const oAuth2Client = new google.auth.OAuth2(
+            process.env.CLIENT_ID,
+            process.env.CLIENT_SECRET,
+            process.env.REDIRECT_URL
+        );
+        google.options({ auth: oAuth2Client });
 
-    oAuth2Client.setCredentials({
-      access_token: code
-    });
+        oAuth2Client.setCredentials({
+            access_token: code
+         });
+        
+        const googleClassroom = google.classroom({ version: 'v1', auth: oAuth2Client });
 
-    const googleClassroom = google.classroom({ version: 'v1', auth: oAuth2Client });
+        return await googleClassroom;
+    },
 
-    return await googleClassroom;
-  },
+    async getCourses(googleClassroom) {
+        return await googleClassroom.courses.list({})
+    },
 
-  async getCourses(googleClassroom) {
-    return await googleClassroom.courses.list({})
-  },
-
+  
   async getCourseWork(googleClassroom) {
     return await googleClassroom.courses.courseWork.list({})
   },

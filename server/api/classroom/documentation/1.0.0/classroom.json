@@ -1015,6 +1015,34 @@
                 }
               }
             }
+          },
+          "google_classroom": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "google_classroom_id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "classroom": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -1064,6 +1092,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "google_classroom": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"
