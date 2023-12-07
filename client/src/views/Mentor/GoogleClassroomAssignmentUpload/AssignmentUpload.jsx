@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
 import { message } from 'antd';
 import './AssignmentUpload.less';
 import googleClassroom from './google_classroom_32x32_yellow_stroke_icon.png';
 import { sendAssignment } from '../../../Utils/googleRequests';
-import { useGlobalState } from '../../../Utils/userState';
-import { useNavigate, useLocation } from 'react-router-dom';
-
 
 
 const AssignmentUpload = ({ classroomid, activity }) => {
-  //const { id, name, enrollmentCode } = location.state;
 
 
   const handleCallback = async () => {

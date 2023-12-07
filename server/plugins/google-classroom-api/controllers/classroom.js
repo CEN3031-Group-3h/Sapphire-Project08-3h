@@ -174,6 +174,7 @@ module.exports = {
     let googleclassroom = await strapi.query('google-classroom').findOne({classroom: strapi_id });
     const google_classroom_id = googleclassroom.google_classroom_id
 
+    console.log(google_classroom_id)
     const googleClassroomClient = await strapi
     .plugins['google-classroom-api']
     .services.classroom
@@ -182,23 +183,24 @@ module.exports = {
     let response = await googleClassroomClient.courses.topics.list({courseId: google_classroom_id});
 
     var topics_id;
-    if(!response.data.topic){
+    let topics = response.data.topic.filter((topic) => topic.name === activity.lesson_module.name);
+    const topicExists = Object.entries(topics).length > 0;
+    if(!topicExists){
       const topic = {
         name: activity.lesson_module.name
       }
-      let topics = await googleClassroomClient.courses.topics.create({courseId: google_classroom_id, requestBody: topic});
+      topics = await googleClassroomClient.courses.topics.create({courseId: google_classroom_id, requestBody: topic});
       topics_id = topics.data.topicId
     }else{
-      let topics = response.data.topic.filter((topic) => topic.name === activity.lesson_module.name);
       topics_id = topics[0].topicId;
     }
 
     const title = "Activity Level " + activity.number;
     const assignmentResponse = await googleClassroomClient.courses.courseWork.list({courseId: google_classroom_id});
-    // let assignments = assignmentResponse.data.courseWork.filter((courseWork) => (courseWork.title === title && courseWork.topicId === topics_id));
-    // const assignmentExist = Object.entries(assignments).length > 0;
+    let assignments = assignmentResponse.data.courseWork.filter((courseWork) => (courseWork.title === title && courseWork.topicId === topics_id));
+    const assignmentExist = Object.entries(assignments).length > 0;
 
-    if(assignmentResponse.data.courseWork){
+    if(assignmentExist){
       ctx.send({
         message: 'ok',
         assignmentExists: true
