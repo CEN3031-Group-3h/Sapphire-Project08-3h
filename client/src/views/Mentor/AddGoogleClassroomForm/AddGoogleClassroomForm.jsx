@@ -17,12 +17,6 @@ export default function AddGoogleClassroomForm() {
   const { id, name, enrollmentCode } = location.state;
   const navigate = useNavigate();
 
-  // For debugging change these fields
-  const grade = 4;
-  const school = 1;
-  const firstName = 'Kaniel'
-  const lastName = 'Vicencio'
-
   const handleAddClassroom = (e) => {
     e.preventDefault();
 

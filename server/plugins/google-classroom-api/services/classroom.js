@@ -31,10 +31,34 @@ module.exports = {
         return await googleClassroom.courses.list({})
     },
 
-    async getCurrentCourse() {
+  
+  async getCourseWork(googleClassroom) {
+    return await googleClassroom.courses.courseWork.list({})
+  },
 
+  async getSubmissions(googleClassroom, courseId, courseWorkId,) {
+    return await googleClassroom.courses.courseWork.studentSubmissions.list({
+      courseId: courseId,
+      courseWorkId: courseWorkId,
+    })
+  },
+
+  async updateGrade(googleClassroom, courseId, courseWorkId, studentId, updatedSubmissionData) {
+    //return await googleClassroom.courses.courseWork.studentSubmissions.patch();
+
+    try {
+      const response = await googleClassroom.courses.courseWork.studentSubmissions.patch({
+        courseId: courseId,
+        courseWorkId: courseWorkId,
+        id: studentId,
+        updateMask: 'draftGrade,assignedGrade', // Add other fields as needed
+        resource: updatedSubmissionData,
+      });
+
+      return response.data;
+    } catch (error) {
+      throw error;
     }
+  },
 
-
-    
 };

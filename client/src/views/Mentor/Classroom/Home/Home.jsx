@@ -11,6 +11,7 @@ import MentorActivityDetailModal from './MentorActivityDetailModal';
 import LessonModuleModal from './LessonModuleSelect/LessonModuleModal';
 import { message, Tag } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import UpdateSubmissionButton from '../../../../components/UpdateSubmissionButton'
 import AssignmentUpload from '../../GoogleClassroomAssignmentUpload/AssignmentUpload';
 
 export default function Home({ classroomId, viewing }) {
@@ -23,7 +24,11 @@ export default function Home({ classroomId, viewing }) {
 
   const SCIENCE = 1;
   const MAKING = 2;
-  const COMPUTATION = 3;
+    const COMPUTATION = 3;
+
+    const courseId = '637107613492';
+    const courseWorkId = 'NjM3MTEwOTc4NjI5';
+    const studentId = 'NjM3MTExMDc5MDkw';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -153,7 +158,14 @@ export default function Home({ classroomId, viewing }) {
                           >
                             Demo Template
                           </button>
-                        )}
+                              )}
+
+                              {/* Use the button component with the necessary IDs */}
+                              <UpdateSubmissionButton
+                                classroomid={classroomId}
+                                activity={activity}
+                              />
+
                         <MentorActivityDetailModal
                           learningStandard={activeLessonModule}
                           selectActivity={activity}
