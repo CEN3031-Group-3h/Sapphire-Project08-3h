@@ -1,3 +1,10 @@
+# Team 3h Project 8 Authentication
+• Google Authentication Login 
+• Google Class Sync
+• Google Classroom Integration
+
+Run the CASM application as normal following the README below, can sign in with google at the user login. Can register google account with the Strapi Backend as a classroom manager, view for listing google classrooms to add to Code Sparks, and can add user/mentor information to create a classroom from a google course. 
+
 # CaSMM
 
 > Computation and Science Modeling through Making
