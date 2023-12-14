@@ -1,3 +1,38 @@
+# Team 3h Project 8 Google Authentication & Integration 
+## 1. Feature Overview: 
+• Google Authentication Login 
+• Google Class Sync
+• Google Classroom Integration
+
+Can register google account with the Strapi Backend as a classroom manager, view for listing google classrooms to add to Code Sparks, and can add user/mentor information to create a classroom from a google course.
+
+## 2. Setup 
+### 2.1. Entire Application
+
+Run the CASM application as normal following the README below, can sign in with google at the user login. Make sure you run yarn/npm install on the front and back end to install additional packages.
+### 2.2 Google Cloud Console
+To be able to access the Google API you need to create a Google Cloud Project and enable the all the scopes for accessing the Google Classroom API. Under the credentials tab, you need to generate an Oauth2 web client key and set the `Authorized JavaScript Origins` to the client URI ex. `localhost:3000` and the server ex. `localhost:1337`. Copy your client id and client secret as you will need that for later.
+
+Once created, you then need to create a .env file for both the frontend client and the server to store your client keys that you created for the google project. 
+
+For the client directory your .env should look like this 
+```
+VITE_CLIENT_ID=<Your Client ID from google>
+```
+and the .env in the server directory should look like this 
+```
+CLIENT_ID=<Your Client ID from google>
+CLIENT_SECRET=<Your Client secret from google>
+REDIRECT_URL=postmessage
+```
+If properly set up, you should be able to use google to sign in. 
+# Team 3h Project 8 Authentication
+• Google Authentication Login 
+• Google Class Sync
+• Google Classroom Integration
+
+Run the CASM application as normal following the README below, can sign in with google at the user login. Can register google account with the Strapi Backend as a classroom manager, view for listing google classrooms to add to Code Sparks, and can add user/mentor information to create a classroom from a google course.
+
 # CaSMM
 
 > Computation and Science Modeling through Making
